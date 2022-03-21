@@ -1,0 +1,20 @@
+body{
+    display: flex;
+    background-color: gray;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: repeat(16, fit-content(10px));
+    gap: 1px 1px;
+}
+
+.grid-element{
+    background-color: white;
+    border: 1px solid black;
+    padding: 17px;
+    margin: auto;
+}
