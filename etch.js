@@ -1,5 +1,6 @@
 const container = document.querySelector(".container");
 const btnClear = document.querySelector("#btn-clear");
+const btnGrid = document.querySelector("#btn-grid");
 const btnRainbow = document.querySelector("btn-rainbow");
 const btnShade = document.querySelector("btn-shade");
 
@@ -36,14 +37,36 @@ for(let i = 0; i < 10000; i++){
             gridEle.style.backgroundColor = "white";
         });
 
+        
+
         /* Rainbow color grid */
 
         /* Shaded grid (10% darker on each pass) */
 
     });
-
-
 }
+
+/* Toggle grid */
+let gridToggle = false;
+
+btnGrid.addEventListener("click", () => {
+    const gridEleList = document.querySelectorAll(".grid-element");
+    for(let i = 0; i < gridEleList.length; i++){
+        if(gridToggle==false){
+            gridEleList[i].style.border = "0px";
+        }
+        else{
+            gridEleList[i].style.border = "1px solid black";
+        }
+    }
+
+    if(gridToggle){
+        gridToggle = false;
+    }
+    else{
+        gridToggle = true;
+    }
+});
 
 /* Need to change grid-template-column & row in css with js */
 
