@@ -4,10 +4,11 @@ const btnGrid = document.querySelector("#btn-grid");
 const btnRainbow = document.querySelector("#btn-rainbow");
 const btnShade = document.querySelector("#btn-shade");
 
-let gridColor = "rgb(255, 215, 0)"
 let validColor = false;
+let colorList = ["BLUE", "BLACK", "RED", "ORANGE", "YELLOW"];
+let gridColor = prompt("Please enter any of the following colors: Blue, Black, Red, Orange, Yellow", "Type of Color");
 
-/*loop1: while(validColor==false){
+loop1: while(validColor==false){
     loop2: for(let i = 0; i < 5; i++){
         if(gridColor.toUpperCase()==colorList[i]){
             validColor = true;
@@ -17,7 +18,7 @@ let validColor = false;
     if(validColor==false){
         gridColor = prompt("Please enter any of the following colors: Blue, Black, Red, Orange, Yellow", "Type of Color");
     }
-}*/
+}
 
 for(let i = 0; i < 10000; i++){
     const gridEle = document.createElement("div");
