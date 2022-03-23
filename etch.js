@@ -1,8 +1,8 @@
 const container = document.querySelector(".container");
 const btnClear = document.querySelector("#btn-clear");
 const btnGrid = document.querySelector("#btn-grid");
-const btnRainbow = document.querySelector("btn-rainbow");
-const btnShade = document.querySelector("btn-shade");
+const btnRainbow = document.querySelector("#btn-rainbow");
+const btnShade = document.querySelector("#btn-shade");
 
 let gridColor = prompt("Please enter any of the following colors: Blue, Black, Red, Orange, Yellow", "Type of Color");
 
@@ -21,7 +21,6 @@ loop1: while(validColor==false){
     }
 }
 
-
 for(let i = 0; i < 10000; i++){
     const gridEle = document.createElement("div");
     gridEle.classList.add("grid-element");
@@ -36,10 +35,6 @@ for(let i = 0; i < 10000; i++){
         btnClear.addEventListener("click", () => {
             gridEle.style.backgroundColor = "white";
         });
-
-        
-
-        /* Rainbow color grid */
 
         /* Shaded grid (10% darker on each pass) */
 
@@ -68,6 +63,44 @@ btnGrid.addEventListener("click", () => {
     }
 });
 
+/* Rainbow color grid */
+/* cite: https://dev.to/akhil_001/generating-random-color-with-single-line-of-js-code-fhj */
+function randomColor(){
+    let randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+    return randomColor;
+}
+
+let validRainbow = false;
+
+btnRainbow.addEventListener("click", () => {
+    if(validRainbow){
+        validRainbow = false;
+    }
+    else{
+        validRainbow = true;
+    }
+
+    rainbowToggle(validRainbow);
+});
+
+function rainbowToggle(validRainbow){
+    const gridEleList = document.querySelectorAll(".grid-element");
+
+    if(validRainbow){
+        for(let i = 0; i < gridEleList.length; i++){
+            gridEleList[i].addEventListener("mouseover", () => {
+                gridEleList[i].style.backgroundColor = gridColor;
+            })
+        }
+    }
+    else{
+        for(let i = 0; i < gridEleList.length; i++){
+            gridEleList[i].addEventListener("mouseover", () => {
+                gridEleList[i].style.backgroundColor = randomColor();
+            })
+        }
+    }
+}
 /* Need to change grid-template-column & row in css with js */
 
 /* Add prompt for confirmation for buttons */
