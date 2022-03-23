@@ -4,12 +4,10 @@ const btnGrid = document.querySelector("#btn-grid");
 const btnRainbow = document.querySelector("#btn-rainbow");
 const btnShade = document.querySelector("#btn-shade");
 
-let gridColor = prompt("Please enter any of the following colors: Blue, Black, Red, Orange, Yellow", "Type of Color");
-
-let colorList = ["BLUE", "BLACK", "RED", "ORANGE", "YELLOW"]
+let gridColor = "rgb(255, 215, 0)"
 let validColor = false;
 
-loop1: while(validColor==false){
+/*loop1: while(validColor==false){
     loop2: for(let i = 0; i < 5; i++){
         if(gridColor.toUpperCase()==colorList[i]){
             validColor = true;
@@ -19,12 +17,13 @@ loop1: while(validColor==false){
     if(validColor==false){
         gridColor = prompt("Please enter any of the following colors: Blue, Black, Red, Orange, Yellow", "Type of Color");
     }
-}
+}*/
 
 for(let i = 0; i < 10000; i++){
     const gridEle = document.createElement("div");
     gridEle.classList.add("grid-element");
     container.appendChild(gridEle);
+    gridEle.style.filter = "brightness(100%)";
 
     gridEle.addEventListener("mouseover", () => {
 
@@ -35,9 +34,6 @@ for(let i = 0; i < 10000; i++){
         btnClear.addEventListener("click", () => {
             gridEle.style.backgroundColor = "white";
         });
-
-        /* Shaded grid (10% darker on each pass) */
-
     });
 }
 
@@ -101,6 +97,63 @@ function rainbowToggle(validRainbow){
         }
     }
 }
+
+/* Shaded grid (10% darker on each pass) */
+let validShade = false;
+
+btnShade.addEventListener("click", () => {
+    if(validShade){
+        shadeToggle(validShade);
+        validShade = false;
+    }
+    else{
+        shadeToggle(validShade);
+        validShade = true;
+    }
+
+    //shadeToggle(validShade);
+})
+
+function shadeToggle(){
+    const gridEleList = document.querySelectorAll(".grid-element");
+    if(validShade){
+        for(let i = 0; i < gridEleList.length; i++){
+            let cloneEle = gridEleList[i].cloneNode(true);
+            gridEleList[i].parentElement.replaceChild(cloneEle, gridEleList[i]);
+            cloneEle.addEventListener("mouseover", () => {
+
+                /* Generic color */
+                cloneEle.style.backgroundColor = gridColor;
+                
+                /* Clear grid */
+                btnClear.addEventListener("click", () => {
+                    gridEle.style.backgroundColor = "white";
+                });
+            });
+        }
+    }
+    else{
+        for(let i = 0; i < gridEleList.length; i++){
+            let enterBrightness = brightnessShading(gridEleList[i]);
+            let leaveBrightness = () => {
+                gridEleList[i].addEventListener("mouseenter", brightnessShading(gridEleList[i]));
+            }
+            gridEleList[i].addEventListener("mouseenter", enterBrightness, true);
+            gridEleList[i].addEventListener("mouseleave", leaveBrightness, true);
+        }
+    }
+}
+
+function brightnessShading(gridEleList){
+    if(gridEleList.style.backgroundColor != "white"){
+        let tempStr = gridEleList.style.filter;
+        let brightVal = tempStr.match(/\d/g);
+        brightVal = [].concat.apply([], brightVal);
+        brightVal = parseInt(brightVal.join("")) - 10;
+        gridEleList.style.filter = "brightness(" + brightVal + "%)";
+    }
+}
+
 /* Need to change grid-template-column & row in css with js */
 
 /* Add prompt for confirmation for buttons */

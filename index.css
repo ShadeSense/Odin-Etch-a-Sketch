@@ -18,5 +18,6 @@ body{
 .grid-element{
     background-color: white;
     border: 1px solid black;
+    filter: brightness(100%);
     padding: 1px;
 }
