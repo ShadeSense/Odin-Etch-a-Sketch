@@ -9,11 +9,13 @@ const btnShade = document.querySelector("#btn-shade");
 /* Slider */
 const sliderValue = document.querySelector(".slider-value");
 const gridSize = document.querySelector("#grid-slider");
-sliderValue.textContent = "100";
+sliderValue.textContent = "100 x 100";
 gridSize.value = 7; //default size
 
 let gridSizeList = [2, 4, 8, 16, 32, 64, 100];
 
+
+/* Default color for grid */
 let validColor = false;
 let colorList = ["BLUE", "BLACK", "RED", "ORANGE", "YELLOW"];
 let gridColor = prompt("Please enter any of the following colors: Blue, Black, Red, Orange, Yellow", "Type of Color");
@@ -30,21 +32,24 @@ loop1: while(validColor==false){
     }
 }
 
+/* Need user to move slider because default is not loaded */
 alert("Move the slider at the bottom to create the grid!");
 
 /* Grid making */
 gridSize.addEventListener("change", () => {
+    /* Fresh template for grid */
     const gridEleList = document.querySelectorAll(".grid-element");
     for(let i = 0; i< gridEleList.length; i++){
         gridEleList[i].parentNode.removeChild(gridEleList[i]);
     }
 
+    /* Gets grid size value and changes css to change format */
     let row = gridSizeList[gridSize.value], column =gridSizeList[gridSize.value];
     let gridNum = Math.pow(gridSizeList[gridSize.value], 2); //default num for grid making
-    console.log(gridNum.toString());
     container.setAttribute('style', 'grid-template-rows: repeat(' + row + ', auto)');
     container.setAttribute('style', 'grid-template-columns: repeat(' + column + ', auto)');
 
+    /* Default settings for grid */
     for(let i = 0; i < gridNum; i++){
         const gridEle = document.createElement("div");
         gridEle.classList.add("grid-element");
@@ -147,6 +152,13 @@ function shadeToggle(){
     const gridEleList = document.querySelectorAll(".grid-element");
     if(validShade){
         for(let i = 0; i < gridEleList.length; i++){
+            /*  Due to how event listeners for brightness was added
+                (shading will happen every time you move in and
+                out of a cell), to turn off shading every cell has
+                to be remade. By cloning each cell and adding it back in, 
+                it will keep the color, but remove all event listeners 
+                including the brightness.
+            */
             let cloneEle = gridEleList[i].cloneNode(true);
             gridEleList[i].parentElement.replaceChild(cloneEle, gridEleList[i]);
             cloneEle.addEventListener("mouseover", () => {
@@ -171,14 +183,14 @@ function shadeToggle(){
 function brightnessShading(gridEleList){
     if(gridEleList.style.backgroundColor != "white" && gridEleList.style.backgroundColor != ""){
         let tempStr = gridEleList.style.filter;
-        let brightVal = tempStr.match(/\d/g);
-        brightVal = [].concat.apply([], brightVal);
-        brightVal = parseInt(brightVal.join("")) - 10;
+        let brightVal = tempStr.match(/\d/g); // gets only brightness digits
+        brightVal = [].concat.apply([], brightVal); // each digit becomes its own array
+        brightVal = parseInt(brightVal.join("")) - 10; // decreases brightness by 10 and parse
         gridEleList.style.filter = "brightness(" + brightVal + "%)";
     }
 }
 
 /* Changing grid with slider */
 gridSize.addEventListener("change", () => {
-    sliderValue.textContent = gridSizeList[gridSize.value];
+    sliderValue.textContent = gridSizeList[gridSize.value] + " x " + gridSizeList[gridSize.value];
 })

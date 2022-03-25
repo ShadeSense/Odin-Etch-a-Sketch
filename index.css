@@ -79,7 +79,7 @@ body{
 }
 
 /*  Info on slider for grid
-    https://www.w3schools.com/howto/howto_js_rangeslider.asp
+    (cite: https://www.w3schools.com/howto/howto_js_rangeslider.asp)
 */
 .slide-container{
     margin-left: 100px;
@@ -101,4 +101,8 @@ body{
 }
 .slider:hover {
     opacity: 1;
+}
+.slider-value{
+    font-family: 'Raleway', sans-serif;
+    font-size: 25px;
 }
