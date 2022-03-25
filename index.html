@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@100;700&display=swap" rel="stylesheet"> 
 </head>
+<header>Etch-a-Sketch</header>
 <body>
     <div class="side-menu">
         <btn class="button" id="btn-clear">Clear</btn>
@@ -16,7 +17,16 @@
         <btn class="button" id="btn-shade">Toggle Shade</btn>
     </div>
 
-    <div class="container">
+    <div class="grid-section">
+        <div class="container">
+        </div>
+
+        <div class="slide-container" cite="https://www.w3schools.com/howto/howto_js_rangeslider.asp">
+            <input type="range" min="0" max="6" step="1" class="slider" id="grid-slider">
+        </div>
+
+        <div class="slider-value">
+        </div>
     </div>
 </body>
 <script src="etch.js"></script>

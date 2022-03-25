@@ -1,8 +1,18 @@
 const container = document.querySelector(".container");
+
+/* Buttons */
 const btnClear = document.querySelector("#btn-clear");
 const btnGrid = document.querySelector("#btn-grid");
 const btnRainbow = document.querySelector("#btn-rainbow");
 const btnShade = document.querySelector("#btn-shade");
+
+/* Slider */
+const sliderValue = document.querySelector(".slider-value");
+const gridSize = document.querySelector("#grid-slider");
+sliderValue.textContent = "100";
+gridSize.value = 7; //default size
+
+let gridSizeList = [2, 4, 8, 16, 32, 64, 100];
 
 let validColor = false;
 let colorList = ["BLUE", "BLACK", "RED", "ORANGE", "YELLOW"];
@@ -20,19 +30,32 @@ loop1: while(validColor==false){
     }
 }
 
-for(let i = 0; i < 10000; i++){
-    const gridEle = document.createElement("div");
-    gridEle.classList.add("grid-element");
-    container.appendChild(gridEle);
-    gridEle.style.filter = "brightness(100%)";
+alert("Move the slider at the bottom to create the grid!");
 
-    gridEle.addEventListener("mouseover", () => {
+/* Grid making */
+gridSize.addEventListener("change", () => {
+    const gridEleList = document.querySelectorAll(".grid-element");
+    for(let i = 0; i< gridEleList.length; i++){
+        gridEleList[i].parentNode.removeChild(gridEleList[i]);
+    }
 
-        /* Generic color */
-        gridEle.style.backgroundColor = gridColor;
-        
-    });
-}
+    let row = gridSizeList[gridSize.value], column =gridSizeList[gridSize.value];
+    let gridNum = Math.pow(gridSizeList[gridSize.value], 2); //default num for grid making
+    console.log(gridNum.toString());
+    container.setAttribute('style', 'grid-template-rows: repeat(' + row + ', auto)');
+    container.setAttribute('style', 'grid-template-columns: repeat(' + column + ', auto)');
+
+    for(let i = 0; i < gridNum; i++){
+        const gridEle = document.createElement("div");
+        gridEle.classList.add("grid-element");
+        container.appendChild(gridEle);
+        gridEle.style.filter = "brightness(100%)";
+
+        gridEle.addEventListener("mouseover", () => {
+            gridEle.style.backgroundColor = gridColor; // Generic color
+        });
+    }
+});
 
 /* Clear grid */
 btnClear.addEventListener("click", () => {
@@ -154,3 +177,8 @@ function brightnessShading(gridEleList){
         gridEleList.style.filter = "brightness(" + brightVal + "%)";
     }
 }
+
+/* Changing grid with slider */
+gridSize.addEventListener("change", () => {
+    sliderValue.textContent = gridSizeList[gridSize.value];
+})
