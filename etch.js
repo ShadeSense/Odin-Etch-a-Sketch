@@ -76,13 +76,13 @@ let validRainbow = false;
 
 btnRainbow.addEventListener("click", () => {
     if(validRainbow){
+        rainbowToggle(validRainbow);
         validRainbow = false;
     }
     else{
+        rainbowToggle(validRainbow);
         validRainbow = true;
     }
-
-    rainbowToggle(validRainbow);
 });
 
 function rainbowToggle(validRainbow){
@@ -116,8 +116,6 @@ btnShade.addEventListener("click", () => {
         shadeToggle(validShade);
         validShade = true;
     }
-
-    //shadeToggle(validShade);
 })
 
 function shadeToggle(){
@@ -154,7 +152,3 @@ function brightnessShading(gridEleList){
         gridEleList.style.filter = "brightness(" + brightVal + "%)";
     }
 }
-
-/* Need to change grid-template-column & row in css with js */
-
-/* Add prompt for confirmation for buttons */
