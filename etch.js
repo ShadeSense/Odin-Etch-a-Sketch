@@ -31,12 +31,17 @@ for(let i = 0; i < 10000; i++){
         /* Generic color */
         gridEle.style.backgroundColor = gridColor;
         
-        /* Clear grid */
-        btnClear.addEventListener("click", () => {
-            gridEle.style.backgroundColor = "white";
-        });
     });
 }
+
+/* Clear grid */
+btnClear.addEventListener("click", () => {
+    const gridEleList = document.querySelectorAll(".grid-element");
+    for(let i = 0; i < gridEleList.length; i++){
+        gridEleList[i].style.backgroundColor = "white";
+        gridEleList[i].style.filter = "brightness(100%)";
+    }
+});
 
 /* Toggle grid */
 let gridToggle = false;
@@ -125,11 +130,6 @@ function shadeToggle(){
 
                 /* Generic color */
                 cloneEle.style.backgroundColor = gridColor;
-                
-                /* Clear grid */
-                btnClear.addEventListener("click", () => {
-                    gridEle.style.backgroundColor = "white";
-                });
             });
         }
     }
@@ -146,7 +146,7 @@ function shadeToggle(){
 }
 
 function brightnessShading(gridEleList){
-    if(gridEleList.style.backgroundColor != "white"){
+    if(gridEleList.style.backgroundColor != "white" && gridEleList.style.backgroundColor != ""){
         let tempStr = gridEleList.style.filter;
         let brightVal = tempStr.match(/\d/g);
         brightVal = [].concat.apply([], brightVal);
