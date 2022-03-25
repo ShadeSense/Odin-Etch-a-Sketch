@@ -66,7 +66,9 @@ btnGrid.addEventListener("click", () => {
 });
 
 /* Rainbow color grid */
-/* cite: https://dev.to/akhil_001/generating-random-color-with-single-line-of-js-code-fhj */
+/*  Info for generating random color
+    cite: https://dev.to/akhil_001/generating-random-color-with-single-line-of-js-code-fhj
+*/
 function randomColor(){
     let randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
     return randomColor;
